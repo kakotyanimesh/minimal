@@ -1,0 +1,46 @@
+import { cn } from "@/lib/cn";
+import { Slot } from "@radix-ui/react-slot";
+import { cva, VariantProps } from "class-variance-authority";
+import { HTMLMotionProps, motion } from "motion/react";
+import { forwardRef } from "react";
+
+const ButtonVariants = cva(
+    "w-fit cursor-pointer whitespace-nowrap font-semibold transition-all ease-out duration-200 disabled:cursor-not-allowed disabled:opacity-25",
+    {
+        variants: {
+            variant: {
+                primary: "bg-primary text-background hover:shadow-primary",
+                secondary:
+                    "bg-transparent border border-primary-foreground/10 bg-background/40 hover:bg-primary-foreground/4",
+            },
+            size: {
+                default: "px-4 py-2 rounded-md text-sm",
+            },
+        },
+        defaultVariants: {
+            variant: "primary",
+            size: "default",
+        },
+    }
+);
+
+interface ButtonProps
+    extends HTMLMotionProps<"button">,
+        VariantProps<typeof ButtonVariants> {
+    asChild?: boolean;
+}
+
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+    ({ className, variant, size, asChild = false, ...props }, ref) => {
+        const SlotComp = motion(asChild ? Slot : "button");
+        return (
+            <SlotComp
+                className={cn(ButtonVariants({ variant, size }), className)}
+                {...props}
+                ref={ref}
+            />
+        );
+    }
+);
+
+Button.displayName = "Button";

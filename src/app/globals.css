@@ -1,0 +1,29 @@
+@import "tailwindcss";
+
+@layer base {
+    :root {
+        --active-background: var(--color-background);
+        --active-foreground: var(--color-foreground);
+    }
+
+    .dark {
+        --active-background:var(--color-background-dark);
+        --active-foreground: var(--color-foreground-dark);
+    }
+}
+
+@theme {
+    --shadow-primary: 0px 0px 0px 3px #f9670d4d;
+    --color-background: hsl(54 100% 95%);
+    --color-foreground: hsl(60 5% 12%);
+    --color-primary: hsl(24 99% 49%);
+    --color-primary-foreground : oklch(20.5% 0 0);
+    --color-background-dark: hsl(60 5% 6%);
+    --color-foreground-dark: hsl(54 100% 95%);
+    --color-primary-dark: hsl(24 99% 49%);
+}
+
+body {
+    background: var(--active-background);
+    color: var(--active-foreground);
+}
