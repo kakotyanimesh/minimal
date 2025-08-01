@@ -1,4 +1,6 @@
+
 @import "tailwindcss";
+
 
 @layer base {
     :root {
@@ -10,17 +12,25 @@
         --active-background:var(--color-background-dark);
         --active-foreground: var(--color-foreground-dark);
     }
+    html {
+        font-family: var(--base-font);
+    }
 }
 
 @theme {
     --shadow-primary: 0px 0px 0px 3px #f9670d4d;
-    --color-background: hsl(54 100% 95%);
-    --color-foreground: hsl(60 5% 12%);
+    /* --color-background: hsl(54 100% 95%); */
+    --color-foreground: hsl(54 100% 95%);
+    --color-background: hsl(60 5% 12%);
     --color-primary: hsl(24 99% 49%);
     --color-primary-foreground : oklch(20.5% 0 0);
     --color-background-dark: hsl(60 5% 6%);
     --color-foreground-dark: hsl(54 100% 95%);
     --color-primary-dark: hsl(24 99% 49%);
+    --font-base : var(--base-font);
+    --font-dotted : var(--dotted-font);
+    --font-anton : var(--anton);
+    --font-uprightOne : var(--uprightone)
 }
 
 body {

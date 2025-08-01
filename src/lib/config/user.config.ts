@@ -15,9 +15,6 @@ export const signinObject = z.object({
 });
 
 export const signupObject = z.object({
-    username: z
-        .string({ error: "Username is required" })
-        .max(50, { error: "Only 20 characters allowed" }),
     email: z.email({ error: "Invalid Email Id, try again" }),
     password: z
         .string({ error: "Password is required" })
@@ -31,5 +28,5 @@ export const signupObject = z.object({
         ),
 });
 
-export type Signin = z.infer<typeof signinObject>;
-export type Signup = z.infer<typeof signupObject>;
+export type SigninTypes = z.infer<typeof signinObject>;
+export type SignupTypes = z.infer<typeof signupObject>;

@@ -3,6 +3,8 @@ import { motion, Variants } from "motion/react";
 import { AnimatedH1 } from "../ui/animatedText";
 import { Button } from "../ui/Button";
 import Link from "next/link";
+import { cn } from "@/lib/cn";
+import { dottedFont } from "@/lib/font-config";
 
 export const Heading = () => {
     const pbVariants: Variants = {
@@ -18,15 +20,15 @@ export const Heading = () => {
         },
     };
     return (
-        <div className='flex flex-col justify-center text-center items-center h-[80vh] bg-primary/10 space-y-5'>
+        <div className='flex flex-col justify-center text-center items-center h-[80vh] bg-foreground/20 space-y-5'>
             <div>
                 <AnimatedH1
-                    className='xl:text-4xl md:text-3xl text-xl text-primary'
+                    className={cn("xl:text-4xl md:text-3xl text-xl text-primary font-extralight", dottedFont.className)}
                     t1='We make your boring'
                 />
                 <AnimatedH1
                     delayTime={0.06}
-                    className='xl:text-4xl md:text-3xl text-xl text-primary'
+                    className={cn("xl:text-4xl md:text-3xl text-xl text-primary font-extralight", dottedFont.className)}
                     t1='photos interesting'
                 />
             </div>

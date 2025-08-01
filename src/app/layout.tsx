@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Toaster } from 'sonner'
 import "./globals.css";
-import { baseFont } from "@/lib/font-config";
+import { anton, baseFont, dottedFont, UpRightFontOne } from "@/lib/font-config";
 
 
 export const metadata: Metadata = {
@@ -15,12 +15,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${baseFont.variable} ${dottedFont.variable} ${anton.variable} ${UpRightFontOne.variable}`}>
       <body
-        className={`${baseFont.className} antialiased font-medium`}
+        className={`antialiased font-medium`}
       >
         {children}
-        <Toaster/>
+        <Toaster richColors/>
       </body>
     </html>
   );

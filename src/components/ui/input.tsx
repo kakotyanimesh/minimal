@@ -3,7 +3,7 @@ import { cva, VariantProps } from "class-variance-authority";
 import { forwardRef } from "react";
 
 const InputVariants = cva(
-    "w-full rounded-md focus:ring-1 px-4 py-2 text-sm placeholder:text-xs focus:outline-none disabled:cursor-not-allowed disabled:opacity-25",
+    "w-full focus:ring-1 px-4 py-2 text-sm placeholder:text-xs focus:outline-none disabled:cursor-not-allowed disabled:opacity-25 font-semibold",
     {
         variants: {
             variant: {
@@ -16,7 +16,6 @@ const InputVariants = cva(
         },
     }
 );
-
 
 interface InputProps
     extends React.InputHTMLAttributes<HTMLInputElement>,

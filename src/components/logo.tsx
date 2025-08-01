@@ -1,4 +1,5 @@
 import { cn } from "@/lib/cn";
+import { dottedFont } from "@/lib/font-config";
 import Link from "next/link";
 import React, { forwardRef, HTMLAttributes } from "react";
 
@@ -7,7 +8,7 @@ export const Logo = forwardRef<HTMLAnchorElement, HTMLAttributes<HTMLAnchorEleme
         return (
             <Link
                 href={"/"}
-                className={cn("text-2xl px-2", className)}
+                className={cn("text-2xl px-2", className, dottedFont.className)}
                 {...props}
                 ref={ref}>
                 Minimal

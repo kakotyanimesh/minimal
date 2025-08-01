@@ -4,7 +4,6 @@ import { AnimatePresence, HTMLMotionProps, motion } from "motion/react";
 import React, { useState } from "react";
 import { Logo } from "./logo";
 import { MotionCard } from "./ui/card";
-import { LinkTag } from "./ui/link";
 import { Button } from "./ui/Button";
 import Link from "next/link";
 
@@ -117,19 +116,15 @@ const MenuCard = () => {
                     delay: 0.1,
                 },
             }}
-            className='fixed right-0 top-0 w-full h-full justify-center items-center z-10 flex flex-col gap-4'>
+            className='fixed right-0 top-0 w-full h-full justify-center items-center text-center z-10 flex flex-col gap-4'>
             <div className='flex flex-col'>
                 {navLinks.map((n, idx) => (
-                    <LinkTag
-                        href={n.src}
-                        key={idx}
-                        intent={"primary"}
-                        className='text-2xl relative'>
+                    <Link href={n.src} key={idx} className='text-2xl relative text-background hover:text-primary transition-all ease-linear duration-150'>
                         {n.title}
-                    </LinkTag>
+                    </Link>
                 ))}
             </div>
-            <Button asChild variant={"primary"}>
+            <Button asChild variant={"primary"} className="w-20">
                 <Link href='signin'>Sign In</Link>
             </Button>
         </MotionCard>

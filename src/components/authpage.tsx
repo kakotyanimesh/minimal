@@ -6,48 +6,88 @@ import { Google } from "./ui/icon/google";
 import { Instagram } from "./ui/icon/instagram";
 import { Twitter } from "./ui/icon/twitter";
 import { Input } from "./ui/input";
-import { LinkTag } from "./ui/link";
+import { createUser } from "@/app/actions/user.action";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
+import { motion } from "motion/react";
+import Link from "next/link";
 
 export const AuthPage = ({ type }: { type: "signin" | "register" }) => {
     const lognin = type === "signin";
+    const router = useRouter();
     const [isPending, startTransition] = useTransition();
 
-    const handleSubmit = () => {
+    const motionVariants = {
+        initial: {
+            y: 3,
+            opacity: 0,
+            filter: "blur(4px)",
+        },
+        animate: {
+            y: 0,
+            opacity: 1,
+            filter: "blur(0px)",
+        },
+        transition: {
+            ease: "easeOut",
+            // duration: 0.6,
+        },
+    };
+
+    const handleSubmit = (formdata: FormData) => {
+        const toaster = toast.loading("submitting your");
         startTransition(async () => {
-            alert("hii")
+            const email = formdata.get("email") as string;
+            const password = formdata.get("password") as string;
+
+            if (lognin) {
+                const signinres = await signIn("credentials", {
+                    email,
+                    password,
+                    redirect: false,
+                });
+
+                if (signinres.error) {
+                    toast.error("Invalid password or email", {
+                        id: toaster,
+                    });
+                    return;
+                }
+
+                router.push("/dashboard");
+            } else {
+                const res = await createUser({ email, password });
+
+                if (!res.success) {
+                    toast.error(res.message, {
+                        id: toaster,
+                    });
+                } else {
+                    toast.success(res.message, {
+                        id: toaster,
+                    });
+                    router.push("/signin");
+                }
+            }
         });
     };
 
     return (
-        <div className='flex flex-col justify-center items-center mt-4 '>
-            <Logo />
+        <div className='flex flex-col justify-center items-center mt-10 '>
+            <Logo className='text-4xl' />
             {/* <h1 className="text-[hsl(var(--background))]">anims</h1> */}
-            <div className='bg-primary/10  lg:w-[70vw] md:w-[80vw] w-[90vw] px-10 py-4 justify-items-center'>
+            <motion.div
+                initial='initial'
+                animate='animate'
+                variants={motionVariants}
+                className='bg-primary/20 md:px-10 px-5 py-4 justify-items-center absolute top-1/2 -translate-y-1/2 w-fit border-2 border-primary'>
                 <h1 className='text-xl font-semibold'>
                     {lognin ? "let's Vibe Again" : "let’s make something cool"}
                 </h1>
 
-                <form
-                    action={handleSubmit}
-                    className='xl:w-96 lg:w-80 w-66 space-y-4'>
+                <form action={handleSubmit} className='lg:w-96 w-66 space-y-4'>
                     <div className='text-left'>
-                        {!lognin && (
-                            <>
-                                <label
-                                    className='text-xs font-black'
-                                    htmlFor='username'>
-                                    username
-                                </label>
-                                <Input
-                                    autoComplete='username'
-                                    required
-                                    disabled={isPending}
-                                    placeholder='username'
-                                    name='username'
-                                    type='text'
-                                />
-                            </>
-                        )}
                         <label className='text-xs font-bold' htmlFor='email'>
                             Email
                         </label>
@@ -90,24 +130,19 @@ export const AuthPage = ({ type }: { type: "signin" | "register" }) => {
                     </div>
                 </form>
 
-                <div className='flex flex-col w-96 gap-2 mt-5'>
+                <div className='flex flex-col gap-2 mt-5'>
                     <SocialButton Sname='Google' disabled={isPending} />
-                    <SocialButton Sname='Instagram' disabled={isPending} />
-                    <SocialButton Sname='Twitter' disabled={isPending} />
                 </div>
 
-                <h1 className='text-xs font-bold mt-5 text-primary-foreground/50'>
+                <h1 className='text-xs font-bold mt-5 text-black'>
                     {!lognin
                         ? "Already have an account? "
                         : "Don't have an account? "}
-                    <LinkTag
-                        intent={"secondary"}
-                        className='text-xs'
-                        href={lognin ? "signup" : "signin"}>
-                        {lognin ? "Sign up" : "Log in"}
-                    </LinkTag>
+                    <Link href={lognin ? "signup" : "signin"} className="hover:underline underline-offset-2">
+                        {lognin ? "Sign up" : "Log in"}{" "}
+                    </Link>
                 </h1>
-            </div>
+            </motion.div>
         </div>
     );
 };
@@ -120,14 +155,14 @@ const SocialButton = ({
     disabled: boolean;
 }) => {
     const socialLogIn = async () => {
-        
+        await signIn("google", { callbackUrl: "/dashboard" });
     };
     return (
         <Button
             disabled={disabled}
             onClick={socialLogIn}
             type='button'
-            className='w-full flex flex-row items-center justify-center gap-2'
+            className='w-66 lg:w-96 flex flex-row items-center justify-center gap-2'
             variant={"secondary"}>
             {Sname === "Google" ? (
                 <Google />

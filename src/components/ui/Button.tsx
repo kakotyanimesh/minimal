@@ -9,12 +9,12 @@ const ButtonVariants = cva(
     {
         variants: {
             variant: {
-                primary: "bg-primary text-background hover:shadow-primary",
+                primary: "bg-primary text-foreground hover:shadow-primary",
                 secondary:
                     "bg-transparent border border-primary-foreground/10 bg-background/40 hover:bg-primary-foreground/4",
             },
             size: {
-                default: "px-4 py-2 rounded-md text-sm",
+                default: "px-4 py-2 text-sm",
             },
         },
         defaultVariants: {
@@ -32,7 +32,8 @@ interface ButtonProps
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     ({ className, variant, size, asChild = false, ...props }, ref) => {
-        const SlotComp = motion(asChild ? Slot : "button");
+        // we got error here !! as motion.create is the new One
+        const SlotComp = asChild ? motion.create(Slot) : motion.button
         return (
             <SlotComp
                 className={cn(ButtonVariants({ variant, size }), className)}
