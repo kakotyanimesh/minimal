@@ -24,16 +24,29 @@
     --color-background: hsl(60 5% 12%);
     --color-primary: hsl(24 99% 49%);
     --color-primary-foreground : oklch(20.5% 0 0);
+    --color-secondary : oklch(68.5% 0.169 237.323);
+    --color-beige : hsl(50, 45%, 87%);
     --color-background-dark: hsl(60 5% 6%);
     --color-foreground-dark: hsl(54 100% 95%);
     --color-primary-dark: hsl(24 99% 49%);
     --font-base : var(--base-font);
     --font-dotted : var(--dotted-font);
     --font-anton : var(--anton);
-    --font-uprightOne : var(--uprightone)
+    --font-uprightOne : var(--uprightone);
 }
 
 body {
     background: var(--active-background);
     color: var(--active-foreground);
+}
+
+.mesh-gradient {
+    background:         
+        linear-gradient(to bottom, hsl(186, 32%, 44%) 0%,  hsla(23, 89%, 51%, 0.587) 100%);
+}
+
+
+@plugin 'tailwind-scrollbar' {
+    nocompatible: true;
+    preferredStrategy: 'pseudoelements';
 }

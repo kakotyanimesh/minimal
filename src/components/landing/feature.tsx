@@ -26,8 +26,8 @@ export const FeatureSection = () => {
                     <WideFeatureCard />
                     <ScrapeBook />
                 </div>
-                <div className='flex md:flex-row flex-col gap-2 '>
-                    <div className='grid sm:grid-cols-2 grid-cols-1 gap-2 md:flex-[2.4] '>
+                <div className='flex lg:flex-row flex-col gap-2 '>
+                    <div className='grid sm:grid-cols-2 grid-cols-1 gap-2 lg:flex-2 '>
                         <InstagramScroll />
                         <div className='flex flex-col justify-between gap-2'>
                             <Caption/>

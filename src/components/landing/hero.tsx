@@ -20,7 +20,7 @@ export const Heading = () => {
         },
     };
     return (
-        <div className='flex flex-col justify-center text-center items-center h-[80vh] bg-foreground/20 space-y-5'>
+        <div className='flex flex-col justify-center text-center items-center h-[80vh] mesh-gradient space-y-5'>
             <div>
                 <AnimatedH1
                     className={cn("xl:text-4xl md:text-3xl text-xl text-primary font-extralight", dottedFont.className)}

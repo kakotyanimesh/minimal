@@ -6,7 +6,7 @@ export const Caption = () => {
         "Where clouds kiss the hills, and time slows down...#ThumjangDiaries #HiddenAssam #InfiniteCarousel";
 
     return (
-        <MotionCard className='bg-foreground/40 text-white size-full text-left py-2 px-3 font-bold'>
+        <MotionCard className='bg-foreground/40 text-white size-full text-left py-2 px-3 font-bold flex flex-col justify-between'>
             <h1 className='text-xl font-dotted'>
                 <span className='text-4xl'>AI </span> <br />
                 Auto Caption

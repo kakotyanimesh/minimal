@@ -1,11 +1,13 @@
+"use client";
 import { MotionCard } from "@/components/ui/card";
 import { VerticalDots } from "@/components/ui/icon/verticaldots";
 import Image from "next/image";
+import { motion } from "motion/react";
 
 export const InstagramScroll = () => {
     return (
-        <MotionCard className='w-full bg-transparent p-0'>
-            <section className='flex flex-row items-center justify-between bg-foreground/10 px-4 py-3 rounded-t-2xl'>
+        <MotionCard className='w-full bg-transparent p-0 group cursor-pointer relative'>
+            <section className='flex flex-row items-center justify-between bg-foreground/10 px-4 py-3'>
                 <div className='flex flex-row items-center gap-2'>
                     <Image
                         src={"/instagramProfile.png"}
@@ -18,15 +20,30 @@ export const InstagramScroll = () => {
                 </div>
                 <VerticalDots />
             </section>
-            <Image
-                src={"/instagramProfile.png"}
-                width={100}
-                height={100}
-                alt='instagram_profile'
-                className='w-full h-56'
-            />
-
-            <div className='bg-foreground-dark/10 rounded-b-2xl p-3'>
+            <div className='flex flex-row overflow-x-auto scrollbar-none'>
+                {Array.from({ length: 9 }).map((_, k) => (
+                    <Image
+                        src={`/instapost/${k}.jpg`}
+                        alt='instagram post'
+                        width={100}
+                        height={100}
+                        className='w-full h-62 select-none pointer-events-none'
+                        key={k}
+                    />
+                ))}
+            </div>
+            <motion.h1
+                initial={{ opacity: 0, y: 7, filter : "blur(4px)" }}
+                whileInView={{ opacity: 1, y: 0 , filter : "blur(0px)"}}
+                transition={{
+                    ease: "linear",
+                    duration: 0.4,
+                }}
+                // bug here on lg the position is something fucked up will do later
+                className='absolute left-1/2 -translate-x-1/2 bottom-4 backdrop-blur-3xl font-dotted text-secondary text-xs bg-pink-400 z-20 shadow-[5px_5px_0px_0px_#c05621] rounded-2xl px-3 '>
+                scroll me
+            </motion.h1>
+            <div className='bg-foreground-dark/10 p-3'>
                 <section className='flex flex-row justify-between'>
                     <div className='flex'>
                         <svg
