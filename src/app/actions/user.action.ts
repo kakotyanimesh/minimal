@@ -19,6 +19,7 @@ export const createUser = async (data : SignupTypes) => {
             message : "User Created successfully"
         }
     } catch (error) {
+        
         const err = handleError(error)
         return {
             success : false,

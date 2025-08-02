@@ -62,6 +62,10 @@ export const AuthPage = ({ type }: { type: "signin" | "register" }) => {
                     return;
                 }
 
+                toast.success("Welcome back", {
+                    id : toaster
+                })
+
                 router.push("/dashboard");
             } else {
                 const res = await createUser({ email, password });
