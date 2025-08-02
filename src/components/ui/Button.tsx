@@ -12,6 +12,7 @@ const ButtonVariants = cva(
                 primary: "bg-primary text-foreground hover:shadow-primary",
                 secondary:
                     "bg-foreground/90 text-primary hover:bg-foreground",
+                transparent : "bg-transparent border-foreground border hover:bg-beige/10 "
             },
             size: {
                 default: "px-4 py-2 text-sm",
