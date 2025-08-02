@@ -7,7 +7,7 @@ import { motion } from "motion/react";
 export const InstagramScroll = () => {
     return (
         <MotionCard className='w-full bg-transparent p-0 group cursor-pointer relative'>
-            <section className='flex flex-row items-center justify-between bg-foreground/10 px-4 py-3'>
+            <section className='flex flex-row items-center justify-between bg-foreground/90 text-background px-4 py-3'>
                 <div className='flex flex-row items-center gap-2'>
                     <Image
                         src={"/instagramProfile.png"}
@@ -34,6 +34,7 @@ export const InstagramScroll = () => {
             </div>
             <motion.h1
                 initial={{ opacity: 0, y: 7, filter : "blur(4px)" }}
+                viewport={{once : true}}
                 whileInView={{ opacity: 1, y: 0 , filter : "blur(0px)"}}
                 transition={{
                     ease: "linear",
@@ -43,19 +44,19 @@ export const InstagramScroll = () => {
                 className='absolute left-1/2 -translate-x-1/2 bottom-4 backdrop-blur-3xl font-dotted text-secondary text-xs bg-pink-400 z-20 shadow-[5px_5px_0px_0px_#c05621] rounded-2xl px-3 '>
                 scroll me
             </motion.h1>
-            <div className='bg-foreground-dark/10 p-3'>
+            <div className='bg-foreground/90  p-3'>
                 <section className='flex flex-row justify-between'>
                     <div className='flex'>
                         <svg
                             className='cursor-pointer'
-                            fill='white'
+                            fill='black'
                             height='18'
                             viewBox='0 0 48 48'
                             width='24'>
                             <path d='M34.6 6.1c5.7 0 10.4 5.2 10.4 11.5 0 6.8-5.9 11-11.5 16S25 41.3 24 41.9c-1.1-.7-4.7-4-9.5-8.3-5.7-5-11.5-9.2-11.5-16C3 11.3 7.7 6.1 13.4 6.1c4.2 0 6.5 2 8.1 4.3 1.9 2.6 2.2 3.9 2.5 3.9.3 0 .6-1.3 2.5-3.9 1.6-2.3 3.9-4.3 8.1-4.3m0-3c-4.5 0-7.9 1.8-10.6 5.6-2.7-3.7-6.1-5.5-10.6-5.5C6 3.1 0 9.6 0 17.6c0 7.3 5.4 12 10.6 16.5.6.5 1.3 1.1 1.9 1.7l2.3 2c4.4 3.9 6.6 5.9 7.6 6.5.5.3 1.1.5 1.6.5.6 0 1.1-.2 1.6-.5 1-.6 2.8-2.2 7.8-6.8l2-1.8c.7-.6 1.3-1.2 2-1.7C42.7 29.6 48 25 48 17.6c0-8-6-14.5-13.4-14.5z'></path>
                         </svg>
                         <svg
-                            fill='white'
+                            fill='black'
                             className='cursor-pointer'
                             height='18'
                             viewBox='0 0 40 48'
@@ -65,7 +66,7 @@ export const InstagramScroll = () => {
                                 fillRule='evenodd'></path>
                         </svg>
                         <svg
-                            fill='white'
+                            fill='black'
                             className='cursor-pointer'
                             height='18'
                             viewBox='0 0 48 48'
@@ -74,7 +75,7 @@ export const InstagramScroll = () => {
                         </svg>
                     </div>
                     <svg
-                        fill='white'
+                        fill='black'
                         height='18'
                         viewBox='0 0 48 48'
                         width='24'>

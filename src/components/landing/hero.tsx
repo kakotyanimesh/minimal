@@ -23,12 +23,12 @@ export const Heading = () => {
         <div className='flex flex-col justify-center text-center items-center h-[80vh] mesh-gradient space-y-5'>
             <div>
                 <AnimatedH1
-                    className={cn("xl:text-4xl md:text-3xl text-xl text-primary font-extralight", dottedFont.className)}
+                    className={cn("xl:text-5xl md:text-4xl text-2xl text-primary font-extralight", dottedFont.className)}
                     t1='We make your boring'
                 />
                 <AnimatedH1
                     delayTime={0.06}
-                    className={cn("xl:text-4xl md:text-3xl text-xl text-primary font-extralight", dottedFont.className)}
+                    className={cn("xl:text-5xl md:text-3xl text-2xl text-primary font-extralight", dottedFont.className)}
                     t1='photos interesting'
                 />
             </div>

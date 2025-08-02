@@ -11,11 +11,13 @@ export const ImageCard = React.forwardRef<HTMLDivElement, ImageCardType>(
     ({ className, text, imageSrc, ...props }, ref) => {
         return (
             <div
-                className={cn("bg-white w-fit h-fit group p-2", className)}
+                className={cn("bg-white w-fit h-fit group p-2 overflow-hidden", className)}
                 {...props}
                 ref={ref}>
                 <div className="overflow-hidden">
                     <Image
+                        loading="lazy"
+                        draggable="false"
                         src={imageSrc}
                         width={100}
                         height={100}

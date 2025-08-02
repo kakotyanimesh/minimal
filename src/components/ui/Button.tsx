@@ -11,7 +11,7 @@ const ButtonVariants = cva(
             variant: {
                 primary: "bg-primary text-foreground hover:shadow-primary",
                 secondary:
-                    "bg-transparent border border-primary-foreground/10 bg-background/40 hover:bg-primary-foreground/4",
+                    "bg-foreground/90 text-primary hover:bg-foreground",
             },
             size: {
                 default: "px-4 py-2 text-sm",
@@ -36,7 +36,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         const SlotComp = asChild ? motion.create(Slot) : motion.button
         return (
             <SlotComp
-                className={cn(ButtonVariants({ variant, size }), className)}
+                className={cn(ButtonVariants({ variant, size }), className, "")}
                 {...props}
                 ref={ref}
             />

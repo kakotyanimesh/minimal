@@ -18,9 +18,16 @@ export const AuthPage = ({ type }: { type: "signin" | "register" }) => {
     const router = useRouter();
     const [isPending, startTransition] = useTransition();
 
+    const svgMotionVariants = {
+        initial: { opacity: 0, scale: 0.9 },
+
+        whileInView: { opacity: 1, scale: 1 },
+        transition: { ease: "easeOut", delay: 0.1 },
+    };
+
     const motionVariants = {
         initial: {
-            y: 3,
+            y: 7,
             opacity: 0,
             filter: "blur(4px)",
         },
@@ -74,75 +81,100 @@ export const AuthPage = ({ type }: { type: "signin" | "register" }) => {
     };
 
     return (
-        <div className='flex flex-col justify-center items-center mt-10 '>
+        <div className='flex flex-col justify-center items-center mt-10 space-y-10'>
             <Logo className='text-4xl' />
-            {/* <h1 className="text-[hsl(var(--background))]">anims</h1> */}
-            <motion.div
-                initial='initial'
-                animate='animate'
-                variants={motionVariants}
-                className='bg-primary/20 md:px-10 px-5 py-4 justify-items-center absolute top-1/2 -translate-y-1/2 w-fit border-2 border-primary'>
-                <h1 className='text-xl font-semibold'>
-                    {lognin ? "let's Vibe Again" : "let’s make something cool"}
-                </h1>
+            <div className='relative'>
+                <Instagram
+                    initial='initial'
+                    whileInView='whileInView'
+                    variants={svgMotionVariants}
+                    className='size-12 rotate-12 -top-4 -right-5 blur-[1px] absolute'
+                />
+                <Twitter
+                    initial='initial'
+                    whileInView='whileInView'
+                    variants={svgMotionVariants}
+                    className='fill-primary size-9 absolute -rotate-12 -left-5 -top-4'
+                />
 
-                <form action={handleSubmit} className='lg:w-96 w-66 space-y-4'>
-                    <div className='text-left'>
-                        <label className='text-xs font-bold' htmlFor='email'>
-                            Email
-                        </label>
-                        <Input
-                            autoComplete='email'
-                            required
-                            disabled={isPending}
-                            placeholder='animesh@gmail.com'
-                            name='email'
-                            type='email'
-                            maxLength={50}
-                        />
-                    </div>
-                    <div className='text-left'>
-                        <label className='text-xs font-bold' htmlFor='password'>
-                            Password
-                        </label>
-                        <Input
-                            autoComplete='password'
-                            maxLength={100}
-                            required
-                            placeholder='Password@55ff'
-                            disabled={isPending}
-                            name='password'
-                            type='password'
-                        />
-                    </div>
-                    <Button
-                        className='w-full'
-                        variant={"primary"}
-                        disabled={isPending}>
-                        {lognin ? "Log in with email" : "Sign Up"}
-                    </Button>
-                    <div className='flex flex-row items-center'>
-                        <div className='flex-1 bg-foreground/20 h-px' />
-                        <span className='text-foreground mx-2 text-xs font-bold'>
-                            Or
-                        </span>
-                        <div className='flex-1 bg-foreground/20 h-px' />
-                    </div>
-                </form>
 
-                <div className='flex flex-col gap-2 mt-5'>
-                    <SocialButton Sname='Google' disabled={isPending} />
-                </div>
+                <motion.div
+                    className='bg-foreground/9 md:px-10 px-5 py-7 text-center w-fit backdrop-blur-sm isolate'
+                    initial='initial'
+                    animate='animate'
+                    variants={motionVariants}>
+                    <h1 className='text-xl font-semibold'>
+                        {lognin
+                            ? "let's Vibe Again"
+                            : "let’s make something cool"}
+                    </h1>
 
-                <h1 className='text-xs font-bold mt-5 text-black'>
-                    {!lognin
-                        ? "Already have an account? "
-                        : "Don't have an account? "}
-                    <Link href={lognin ? "signup" : "signin"} className="hover:underline underline-offset-2">
-                        {lognin ? "Sign up" : "Log in"}{" "}
-                    </Link>
-                </h1>
-            </motion.div>
+                    <form
+                        action={handleSubmit}
+                        className='lg:w-96 w-66 space-y-4'>
+                        <div className='text-left'>
+                            <label
+                                className='text-xs font-bold'
+                                htmlFor='email'>
+                                Email
+                            </label>
+                            <Input
+                                autoComplete='email'
+                                required
+                                disabled={isPending}
+                                placeholder='animesh@gmail.com'
+                                name='email'
+                                type='email'
+                                maxLength={50}
+                            />
+                        </div>
+                        <div className='text-left'>
+                            <label
+                                className='text-xs font-bold'
+                                htmlFor='password'>
+                                Password
+                            </label>
+                            <Input
+                                autoComplete='password'
+                                maxLength={100}
+                                required
+                                placeholder='Password@55ff'
+                                disabled={isPending}
+                                name='password'
+                                type='password'
+                            />
+                        </div>
+                        <Button
+                            className='w-full'
+                            variant={"primary"}
+                            disabled={isPending}>
+                            {lognin ? "Log in with email" : "Sign Up"}
+                        </Button>
+                        <div className='flex flex-row items-center'>
+                            <div className='flex-1 bg-foreground/20 h-px' />
+                            <span className='text-foreground mx-2 text-xs font-bold'>
+                                Or
+                            </span>
+                            <div className='flex-1 bg-foreground/20 h-px' />
+                        </div>
+                    </form>
+
+                    <div className='flex flex-col gap-2 mt-5'>
+                        <SocialButton Sname='Google' disabled={isPending} />
+                    </div>
+
+                    <h1 className='text-xs font-bold mt-5 text-foreground'>
+                        {!lognin
+                            ? "Already have an account? "
+                            : "Don't have an account? "}
+                        <Link
+                            href={lognin ? "signup" : "signin"}
+                            className='hover:underline underline-offset-2 text-beige'>
+                            {lognin ? "Sign up" : "Log in"}{" "}
+                        </Link>
+                    </h1>
+                </motion.div>
+            </div>
         </div>
     );
 };

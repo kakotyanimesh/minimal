@@ -8,7 +8,7 @@ type AnimatedH1Props = HTMLAttributes<HTMLHeadingElement> & { t1: string, delayT
 export const AnimatedH1 = forwardRef<HTMLHeadingElement, AnimatedH1Props>(
     ({ className, t1,delayTime, ...props }, ref) => {
         return (
-            <h1 className={cn("text-center md:space-x-2 space-x-1 text-3xl break-all", className)} {...props} ref={ref}>
+            <h1 className={cn("text-center md:space-x-2 space-x-1 text-4xl break-all", className)} {...props} ref={ref}>
                 {t1.split(" ").map((t, idx) => (
                     <motion.span
                         key={idx}
