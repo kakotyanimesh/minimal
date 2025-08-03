@@ -11,28 +11,33 @@ export async function POST(req: NextRequest) {
             throw parseddata.error;
         }
 
-        const { email, password } = parseddata.data
+        const { email, password } = parseddata.data;
 
-        const hasedPassword = await bcrypt.hash(password, 10)
+        const hasedPassword = await bcrypt.hash(password, 10);
 
         await prisma.user.create({
-            data : {
+            data: {
                 email,
-                password : hasedPassword,
-                account : {
-                    create : {
-                        providerId : email,
-                        providerType : "oauth"
-                    }
-                }
-            }
-        })
+                password: hasedPassword,
+                account: {
+                    create: {
+                        providerId: email,
+                        providerType: "oauth",
+                    },
+                },
+            },
+        });
 
-        return NextResponse.json({ message: "user created" }, { status: 201 });
+        return NextResponse.json(
+            { message: "✅ Account created successfully!" },
+            { status: 201 }
+        );
     } catch (error) {
-        
         const err = handleError(error);
 
-        return NextResponse.json({ message: err.message }, { status: err.status });
+        return NextResponse.json(
+            { message: err.message },
+            { status: err.status }
+        );
     }
 }

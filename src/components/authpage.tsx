@@ -43,7 +43,7 @@ export const AuthPage = ({ type }: { type: "signin" | "register" }) => {
     };
 
     const handleSubmit = (formdata: FormData) => {
-        const toaster = toast.loading("submitting your");
+        const toaster = toast.loading(lognin ? "🔐 Logging you in..." : "🛠️ Creating your account...");
         startTransition(async () => {
             try {
                 const email = formdata.get("email") as string;
@@ -63,7 +63,7 @@ export const AuthPage = ({ type }: { type: "signin" | "register" }) => {
                         return;
                     }
 
-                    toast.success("Welcome back", {
+                    toast.success("👋 Welcome back! You're in", {
                         id: toaster,
                     });
 
@@ -77,9 +77,12 @@ export const AuthPage = ({ type }: { type: "signin" | "register" }) => {
                         body: JSON.stringify({ email, password }),
                     });
 
-                    const data = await res.json();
+                    
 
-                    if (!data.success) {
+                    const data = await res.json();
+                    
+
+                    if (!res.ok) {
                         toast.error(data.message, {
                             id: toaster,
                         });
@@ -108,13 +111,13 @@ export const AuthPage = ({ type }: { type: "signin" | "register" }) => {
                     initial='initial'
                     whileInView='whileInView'
                     variants={svgMotionVariants}
-                    className='size-12 rotate-12 -top-4 -right-5 blur-[1px] absolute'
+                    className='size-12 rotate-12 -top-4 md:-right-5 right-4 blur-[1px] absolute'
                 />
                 <Twitter
                     initial='initial'
                     whileInView='whileInView'
                     variants={svgMotionVariants}
-                    className='fill-primary size-9 absolute -rotate-12 -left-5 -top-4'
+                    className='fill-primary size-9 absolute -rotate-12 md:-left-5 left-2 -top-4'
                 />
 
                 <motion.div
