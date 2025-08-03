@@ -6,12 +6,12 @@ import { Google } from "./ui/icon/google";
 import { Instagram } from "./ui/icon/instagram";
 import { Twitter } from "./ui/icon/twitter";
 import { Input } from "./ui/input";
-import { createUser } from "@/app/actions/user.action";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 import { motion } from "motion/react";
 import Link from "next/link";
+import { handleFrontendTypeError } from "@/lib/apicalls/frontenderror";
 
 export const AuthPage = ({ type }: { type: "signin" | "register" }) => {
     const lognin = type === "signin";
@@ -45,41 +45,57 @@ export const AuthPage = ({ type }: { type: "signin" | "register" }) => {
     const handleSubmit = (formdata: FormData) => {
         const toaster = toast.loading("submitting your");
         startTransition(async () => {
-            const email = formdata.get("email") as string;
-            const password = formdata.get("password") as string;
+            try {
+                const email = formdata.get("email") as string;
+                const password = formdata.get("password") as string;
 
-            if (lognin) {
-                const signinres = await signIn("credentials", {
-                    email,
-                    password,
-                    redirect: false,
-                });
+                if (lognin) {
+                    const signinres = await signIn("credentials", {
+                        email,
+                        password,
+                        redirect: false,
+                    });
 
-                if (signinres.error) {
-                    toast.error("Invalid password or email", {
+                    if (signinres.error) {
+                        toast.error("Invalid password or email", {
+                            id: toaster,
+                        });
+                        return;
+                    }
+
+                    toast.success("Welcome back", {
                         id: toaster,
                     });
-                    return;
-                }
 
-                toast.success("Welcome back", {
+                    router.push("/dashboard");
+                } else {
+                    const res = await fetch("/api/auth/signup", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({ email, password }),
+                    });
+
+                    const data = await res.json();
+
+                    if (!data.success) {
+                        toast.error(data.message, {
+                            id: toaster,
+                        });
+                    } else {
+                        toast.success(data.message, {
+                            id: toaster,
+                        });
+                        router.push("/signin");
+                    }
+                }
+            } catch (error) {
+                const errorMsg = handleFrontendTypeError(error)
+
+                toast.error(errorMsg, {
                     id : toaster
                 })
-
-                router.push("/dashboard");
-            } else {
-                const res = await createUser({ email, password });
-
-                if (!res.success) {
-                    toast.error(res.message, {
-                        id: toaster,
-                    });
-                } else {
-                    toast.success(res.message, {
-                        id: toaster,
-                    });
-                    router.push("/signin");
-                }
             }
         });
     };
@@ -100,7 +116,6 @@ export const AuthPage = ({ type }: { type: "signin" | "register" }) => {
                     variants={svgMotionVariants}
                     className='fill-primary size-9 absolute -rotate-12 -left-5 -top-4'
                 />
-
 
                 <motion.div
                     className='bg-foreground/9 md:px-10 px-5 py-7 text-center w-fit backdrop-blur-sm isolate'

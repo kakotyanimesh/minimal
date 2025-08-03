@@ -1,6 +1,7 @@
 import { signupObject } from "@/lib/config/user.config";
-import { signup } from "@/lib/data/user";
 import { handleError } from "@/lib/error";
+import prisma from "@/lib/prisma";
+import bcrypt from "bcryptjs";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
@@ -10,13 +11,28 @@ export async function POST(req: NextRequest) {
             throw parseddata.error;
         }
 
-        await signup(parseddata.data);
+        const { email, password } = parseddata.data
 
-        return NextResponse.json({ msg: "user created" }, { status: 201 });
+        const hasedPassword = await bcrypt.hash(password, 10)
+
+        await prisma.user.create({
+            data : {
+                email,
+                password : hasedPassword,
+                account : {
+                    create : {
+                        providerId : email,
+                        providerType : "oauth"
+                    }
+                }
+            }
+        })
+
+        return NextResponse.json({ message: "user created" }, { status: 201 });
     } catch (error) {
         
         const err = handleError(error);
 
-        return NextResponse.json({ msg: err.message }, { status: err.status });
+        return NextResponse.json({ message: err.message }, { status: err.status });
     }
 }

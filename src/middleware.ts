@@ -10,6 +10,7 @@ export async function middleware(req: NextRequest) {
     // console.log(nextUrl);
 
     const isApiAuthRoutes = nextUrl.pathname.startsWith(authapiPrefix);
+    
 
     // console.log(isApiAuthRoutes);
     // const isPublicRoutes = publicRoutes.includes(nextUrl.pathname)

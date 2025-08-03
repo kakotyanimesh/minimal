@@ -3,15 +3,12 @@ import z from "zod";
 // imported
 import { PrismaClientKnownRequestError } from "@/generated/prisma/runtime/library";
 
-
 type ErrorRespone = {
     status: number;
     message: string;
 };
 
 export const handleError = (error: unknown): ErrorRespone => {
-    console.log(error);
-    
     if (error instanceof z.ZodError) {
         return {
             status: 400,
@@ -19,15 +16,18 @@ export const handleError = (error: unknown): ErrorRespone => {
         };
     }
 
-
     // prisma errors should be handeled seperately for now ( ill fix it later)
-    if(error instanceof PrismaClientKnownRequestError && error.code === "P2002"){
-        const targetedField = (error.meta?.target as string[] | undefined)?.join(",  ");
+    if (
+        error instanceof PrismaClientKnownRequestError &&
+        error.code === "P2002"
+    ) {
+        const targetedField = (
+            error.meta?.target as string[] | undefined
+        )?.join(",  ");
         return {
             status: 409,
             message: `Oops 😬 That ${targetedField} is already taken. Try being a bit more original 👀`,
         };
-
     }
     if (error instanceof PrismaClientKnownRequestError && error.code) {
         switch (error.code) {
